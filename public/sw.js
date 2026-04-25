@@ -1,4 +1,9 @@
-/* Minimal SW for offline shell + runtime caching (no Workbox). */
+/* Minimal SW for offline shell (no Workbox).
+ *
+ * Update behavior:
+ * - Navigation requests are NETWORK-FIRST (so new deploys load immediately when online)
+ * - Offline falls back to the cached shell
+ */
 
 const CACHE_NAME = 'index-cards-shell-v1';
 const SHELL_URLS = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
@@ -25,26 +30,29 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
 
-  // App-shell routing: for navigations, serve cached shell if available.
+  // App-shell routing: for navigations, prefer network so new deploys update quickly.
   if (req.mode === 'navigate') {
     event.respondWith(
-      caches.match('./index.html').then((cached) => cached || fetch(req).catch(() => cached)),
+      fetch(req, { cache: 'no-store' })
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((c) => c.put('./index.html', copy)).catch(() => undefined);
+          return res;
+        })
+        .catch(() => caches.match('./index.html')),
     );
     return;
   }
 
-  // Runtime cache: cache-first, then network, then fallback to cache.
+  // Runtime cache: network-first, fallback to cache (keeps JS/CSS fresh on new deploys).
   event.respondWith(
-    caches.match(req).then((cached) => {
-      if (cached) return cached;
-      return fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => undefined);
-          return res;
-        })
-        .catch(() => cached);
-    }),
+    fetch(req)
+      .then((res) => {
+        const copy = res.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => undefined);
+        return res;
+      })
+      .catch(() => caches.match(req)),
   );
 });
 
