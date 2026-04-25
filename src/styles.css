@@ -127,6 +127,52 @@ body {
 
 .rangeWrap input[type='range'] {
   width: 120px;
+  accent-color: rgba(30, 27, 24, 0.5);
+}
+
+.rangeWrap input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 28px;
+  background: transparent;
+}
+
+.rangeWrap input[type='range']::-webkit-slider-runnable-track {
+  height: 6px;
+  background: rgba(30, 27, 24, 0.14);
+  border-radius: 999px;
+}
+
+.rangeWrap input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -8px;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.95);
+  border: 1px solid rgba(30, 27, 24, 0.24);
+  box-shadow: 0 8px 18px rgba(20, 18, 16, 0.16);
+}
+
+.rangeWrap input[type='range']::-webkit-slider-thumb:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.rangeWrap input[type='range']::-moz-range-track {
+  height: 6px;
+  background: rgba(30, 27, 24, 0.14);
+  border-radius: 999px;
+}
+
+.rangeWrap input[type='range']::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.95);
+  border: 1px solid rgba(30, 27, 24, 0.24);
+  box-shadow: 0 8px 18px rgba(20, 18, 16, 0.16);
 }
 
 .screen {
@@ -139,6 +185,38 @@ body {
   display: grid;
   place-items: center;
   gap: 10px;
+}
+
+.cardTopRow {
+  width: min(92vw, 1000px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cardPaddles {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(44px, 86px) 1fr minmax(44px, 86px);
+  align-items: stretch;
+  gap: 10px;
+}
+
+.btnPaddle {
+  border-radius: 18px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  min-width: 44px;
+  min-height: 48px;
+}
+
+.btnPaddle:disabled {
+  opacity: 0.22;
 }
 
 .cardSurface {

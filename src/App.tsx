@@ -336,20 +336,10 @@ export function App() {
 
       <main className="screen">
         <div className="cardStage">
-          <div className="cardNavRow" aria-label="Card navigation">
-            <button className="btn" onClick={onPrev} disabled={cardIndex <= 0 || isEditing}>
-              ←
-            </button>
+          <div className="cardTopRow" aria-label="Card controls">
             <span className="badge">
               {stack.cardIds.length === 0 ? 'Empty' : `${cardIndex + 1} / ${stack.cardIds.length}`}
             </span>
-            <button
-              className="btn"
-              onClick={onNext}
-              disabled={stack.cardIds.length === 0 || cardIndex >= stack.cardIds.length - 1 || isEditing}
-            >
-              →
-            </button>
             <button
               className="btn"
               onClick={() => {
@@ -367,38 +357,48 @@ export function App() {
             </button>
           </div>
 
-          <div
-            className="cardSurface"
-            role="group"
-            aria-label="Card"
-            onPointerDown={swipe.onPointerDown}
-            onPointerMove={swipe.onPointerMove}
-            onPointerUp={swipe.onPointerUp}
-            onPointerCancel={swipe.onPointerCancel}
-            onClick={() => {
-              if (stack.cardIds.length === 0) return;
-              setIsEditing(true);
-            }}
-            style={{ fontSize: `${stack.fontSizePt}pt` }}
-          >
-            {stack.cardIds.length === 0 ? (
-              <div className="cardBody">
-                <p className="muted">No cards yet. Tap “+ Card” to add one.</p>
-              </div>
-            ) : isEditing && currentCard ? (
-              <textarea
-                className="cardEditor"
-                value={currentCard.text}
-                onChange={(e) => actions.updateCardText(currentCard.id, e.target.value)}
-                onBlur={() => setIsEditing(false)}
-                autoFocus
-                aria-label="Edit card"
-              />
-            ) : (
-              <div className="cardBody">
-                <p className="cardText">{currentCard?.text || ''}</p>
-              </div>
-            )}
+          <div className="cardPaddles" aria-label="Card navigation">
+            <button className="btn btnPaddle" onClick={onPrev} disabled={!canGoPrev || isEditing} aria-label="Previous">
+              {'<'}
+            </button>
+
+            <div
+              className="cardSurface"
+              role="group"
+              aria-label="Card"
+              onPointerDown={swipe.onPointerDown}
+              onPointerMove={swipe.onPointerMove}
+              onPointerUp={swipe.onPointerUp}
+              onPointerCancel={swipe.onPointerCancel}
+              onClick={() => {
+                if (stack.cardIds.length === 0) return;
+                setIsEditing(true);
+              }}
+              style={{ fontSize: `${stack.fontSizePt}pt` }}
+            >
+              {stack.cardIds.length === 0 ? (
+                <div className="cardBody">
+                  <p className="muted">No cards yet. Tap “+ Card” to add one.</p>
+                </div>
+              ) : isEditing && currentCard ? (
+                <textarea
+                  className="cardEditor"
+                  value={currentCard.text}
+                  onChange={(e) => actions.updateCardText(currentCard.id, e.target.value)}
+                  onBlur={() => setIsEditing(false)}
+                  autoFocus
+                  aria-label="Edit card"
+                />
+              ) : (
+                <div className="cardBody">
+                  <p className="cardText">{currentCard?.text || ''}</p>
+                </div>
+              )}
+            </div>
+
+            <button className="btn btnPaddle" onClick={onNext} disabled={!canGoNext || isEditing} aria-label="Next">
+              {'>'}
+            </button>
           </div>
         </div>
       </main>
