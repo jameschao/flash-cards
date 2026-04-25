@@ -131,23 +131,19 @@ export function App() {
                   const s = model.stacks[id];
                   if (!s) return null;
                   return (
-                    <button
-                      key={id}
-                      className="rowButton"
-                      onClick={() => setHash({ name: 'stack', stackId: id })}
-                    >
-                      <div>
-                        <div className="stackTitle">{s.name}</div>
-                        <div className="rowMeta">
-                          {s.cardIds.length} / {MAX_CARDS_PER_STACK}
-                        </div>
+                    <div key={id} className="stackRow">
+                      <div className="stackRowMain">
+                        <button className="stackRowOpen" onClick={() => setHash({ name: 'stack', stackId: id })}>
+                          <div className="stackTitle">{s.name}</div>
+                          <div className="rowMeta">
+                            {s.cardIds.length} / {MAX_CARDS_PER_STACK}
+                          </div>
+                        </button>
                       </div>
                       <div className="rowActions">
                         <button
                           className="btn"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
+                          onClick={() => {
                             const name = window.prompt('Rename stack', s.name);
                             if (name != null) actions.renameStack(id, name.trim() || s.name);
                           }}
@@ -156,9 +152,7 @@ export function App() {
                         </button>
                         <button
                           className="btn btnDanger"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
+                          onClick={() => {
                             if (window.confirm(`Delete stack “${s.name}”? This cannot be undone.`)) {
                               actions.deleteStack(id);
                             }
@@ -167,7 +161,7 @@ export function App() {
                           Delete
                         </button>
                       </div>
-                    </button>
+                    </div>
                   );
                 })}
               </div>
