@@ -1,6 +1,6 @@
 {
-  "name": "Index Cards",
-  "short_name": "Cards",
+  "name": "Flash Cards",
+  "short_name": "Flash Cards",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
