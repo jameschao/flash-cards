@@ -46,6 +46,16 @@ export function App() {
   const stackRouteId = route.name === 'stack' || route.name === 'reorder' ? route.stackId : undefined;
 
   useEffect(() => {
+    const base = 'Flash Cards';
+    if (route.name === 'stack' || route.name === 'reorder') {
+      const name = stack?.name?.trim();
+      document.title = name ? `Flash Cards: ${name}` : base;
+      return;
+    }
+    document.title = base;
+  }, [route.name, stackRouteId, stack?.name]);
+
+  useEffect(() => {
     if (route.name === 'stack' || route.name === 'reorder') {
       setCardIndex(0);
       setIsEditing(false);
