@@ -106,21 +106,21 @@ body {
 }
 
 .cardStage {
-  width: min(92vw, 900px);
+  width: min(92vw, 1100px);
   display: grid;
   place-items: center;
   gap: 10px;
 }
 
 .cardSurface {
-  width: min(86vw, 520px);
-  aspect-ratio: 3 / 5;
+  width: min(92vw, 820px);
+  aspect-ratio: 5 / 3;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: 0 20px 45px var(--shadow);
   display: grid;
-  touch-action: pan-y;
+  touch-action: none;
 }
 
 .cardBody {
