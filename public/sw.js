@@ -5,8 +5,19 @@
  * - Offline falls back to the cached shell
  */
 
-const CACHE_NAME = 'index-cards-shell-v1';
-const SHELL_URLS = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
+const CACHE_NAME = 'index-cards-shell-v3';
+const SHELL_URLS = [
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './pwa-icon-192.png',
+  './pwa-icon-512.png',
+  './pwa-icon-192-maskable.png',
+  './pwa-icon-512-maskable.png',
+  './apple-touch-icon.png',
+  './favicon-32.png',
+  './favicon-16.png',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
