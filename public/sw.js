@@ -3,9 +3,13 @@
  * Update behavior:
  * - Navigation requests are NETWORK-FIRST (so new deploys load immediately when online)
  * - Offline falls back to the cached shell
+ *
+ * After `vite build`, scripts/inject-precache.mjs replaces the BUILD_PRECACHE marker with
+ * hashed JS/CSS URLs from dist/index.html so install-time precache includes the full app.
  */
 
-const CACHE_NAME = 'index-cards-shell-v3';
+const CACHE_NAME = 'index-cards-shell-v4';
+
 const SHELL_URLS = [
   './',
   './index.html',
@@ -19,11 +23,18 @@ const SHELL_URLS = [
   './favicon-16.png',
 ];
 
+/** Injected at build time; in dev stays empty (runtime fetch still caches assets when online). */
+const BUILD_PRECACHE_URLS = /*__BUILD_PRECACHE__*/[];
+
+function precacheUrlList() {
+  return [...new Set([...SHELL_URLS, ...BUILD_PRECACHE_URLS, './sw.js'])];
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE_NAME)
-      .then((cache) => cache.addAll(SHELL_URLS))
+      .then((cache) => cache.addAll(precacheUrlList()))
       .then(() => self.skipWaiting()),
   );
 });

@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/inject-precache.mjs && node scripts/verify-dist-precache.mjs",
     "preview": "vite preview",
+    "offline-smoke": "npm run build && node scripts/offline-smoke.mjs",
     "lint-code": "eslint .",
     "test": "vitest run"
   },
