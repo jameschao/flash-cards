@@ -185,11 +185,10 @@ body {
 }
 
 .rowButton {
-  width: 100%;
   text-align: left;
   border: 0;
   background: transparent;
-  padding: 14px 14px;
+  padding: 14px 20px 14px 14px;
   min-height: 56px;
   display: flex;
   align-items: center;
@@ -212,6 +211,8 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-right: 6px;
+  flex-shrink: 0;
 }
 
 .dialogBackdrop {
