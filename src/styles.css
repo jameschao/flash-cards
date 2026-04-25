@@ -5,9 +5,13 @@
   --muted: #6b6b6b;
   --card: #fffdf8;
   --shadow: rgba(20, 18, 16, 0.14);
-  --border: rgba(20, 18, 16, 0.08);
+  --border: rgba(20, 18, 16, 0.12);
   --radius: 14px;
   --focus: rgba(20, 18, 16, 0.22);
+  --controlBg: rgba(255, 255, 255, 0.72);
+  --controlBgHover: rgba(255, 255, 255, 0.86);
+  --controlBorder: rgba(20, 18, 16, 0.18);
+  --controlShadow: rgba(20, 18, 16, 0.08);
 }
 
 html,
@@ -47,20 +51,45 @@ body {
 
 .btn {
   appearance: none;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--controlBorder);
+  background: var(--controlBg);
   color: var(--ink);
   border-radius: 999px;
-  padding: 10px 14px;
-  font-size: 14px;
+  padding: 12px 16px;
+  font-size: 15px;
   line-height: 1;
-  min-height: 44px;
+  min-height: 48px;
   min-width: 44px;
+  box-shadow: 0 6px 16px var(--controlShadow);
+}
+
+.btn:hover {
+  background: var(--controlBgHover);
+}
+
+.btn:active {
+  transform: translateY(0.5px);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  box-shadow: none;
 }
 
 .btn:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
+}
+
+.btnPrimary {
+  background: rgba(30, 27, 24, 0.92);
+  border-color: rgba(30, 27, 24, 0.92);
+  color: #fffdf8;
+  box-shadow: 0 10px 22px rgba(20, 18, 16, 0.16);
+}
+
+.btnPrimary:hover {
+  background: rgba(30, 27, 24, 1);
 }
 
 .btnDanger {

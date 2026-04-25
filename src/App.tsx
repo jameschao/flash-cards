@@ -110,7 +110,7 @@ export function App() {
           </div>
           <div className="topBarRight">
             <button
-              className="btn"
+              className="btn btnPrimary"
               onClick={() => {
                 const id = actions.createStack();
                 setHash({ name: 'stack', stackId: id });
