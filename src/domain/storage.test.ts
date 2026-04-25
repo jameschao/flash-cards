@@ -10,7 +10,10 @@ describe('storage', () => {
   it('returns empty model when nothing saved', () => {
     const m = loadModel();
     expect(m.version).toBe(1);
-    expect(m.stackOrder).toEqual([]);
+    expect(m.stackOrder.length).toBe(1);
+    const stack = m.stacks[m.stackOrder[0]];
+    expect(stack.name).toBe('My Stack');
+    expect(stack.cardIds.length).toBe(1);
   });
 
   it('round-trips model through localStorage', () => {
@@ -29,7 +32,7 @@ describe('storage', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 999, stacks: {} }));
     const m = loadModel();
     expect(m.version).toBe(1);
-    expect(m.stackOrder).toEqual([]);
+    expect(m.stackOrder.length).toBe(1);
   });
 });
 

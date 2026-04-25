@@ -97,14 +97,16 @@ export function useAppStore() {
     () => ({
       createStack() {
         const id = newId('stack');
+        const cardId = newId('card');
         commit((prev) => ({
           ...prev,
+          cards: { ...prev.cards, [cardId]: { id: cardId, text: '' } },
           stacks: {
             ...prev.stacks,
             [id]: {
               id,
               name: 'New stack',
-              cardIds: [],
+              cardIds: [cardId],
               fontSizePt: 18,
             },
           },
